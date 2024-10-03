@@ -1,0 +1,15 @@
+.main {
+    height: 100svh;
+}
+
+.box {
+    max-width: 450px;
+    min-height: 290px;
+}
+
+
+@media only screen and (max-width : 350px) {
+    .section1 {
+        flex-direction: column;
+    }
+}
