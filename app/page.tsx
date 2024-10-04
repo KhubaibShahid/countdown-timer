@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 
 export default function App() {
 
@@ -10,10 +10,12 @@ export default function App() {
     const [seconds, setSeconds] = useState("00");
     const [ispause, setIspause] = useState(false);
     // const [isStart, setIsstart] = useState(false);
-    let timeRef : any = useRef(null);
+    const timeRef = useRef<NodeJS.Timeout | null>(null);
 
     function convert() {
-        clearInterval(timeRef.current);
+        if (timeRef.current) {
+            clearInterval(timeRef.current);
+        }
         setIspause(false);
 
         let min = 0;
@@ -37,7 +39,9 @@ export default function App() {
                         setSeconds(String(sec).padStart(2, "0"));
                     } else {
                         if (min == 0) {
-                            clearInterval(timeRef.current);
+                            if (timeRef.current) {
+                                clearInterval(timeRef.current);
+                            }
                         } else {
                             min = min - 1;
                             sec = 59;
@@ -49,7 +53,9 @@ export default function App() {
     }
 
     function resetTimer() {
-        clearInterval(timeRef.current);
+        if (timeRef.current) {
+            clearInterval(timeRef.current);
+        }
         setIspause(false);
         setMinutes("00");
         setSeconds("00");
@@ -61,7 +67,9 @@ export default function App() {
     }
 
     function pauseTimer() {
-        clearInterval(timeRef.current)
+        if (timeRef.current) {
+            clearInterval(timeRef.current)
+        }
         setIspause(true);
     }
 
